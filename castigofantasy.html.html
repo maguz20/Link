@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Castigo Fantasy</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/c8/Lionel_Messi_WC2022.jpg'); /* URL de la imagen de Messi */
+            background-size: contain; /* Ajusta la imagen al contenedor */
+            background-repeat: no-repeat; /* No repite la imagen */
+            background-position: center; /* Centra la imagen */
+            color: white;
+            font-family: Arial, sans-serif;
+            position: relative; /* Para posicionar las explosiones */
+            overflow: hidden; /* Evita el desplazamiento */
+        }
+        .message {
+            font-size: 8vw; /* Tamaño del texto responsivo */
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); /* Sombra para el texto */
+            position: relative; /* Para animaciones */
+            z-index: 2; /* Asegura que el texto esté sobre el fondo */
+            animation: fadeIn 1s; /* Animación de aparición */
+        }
+
+        /* Animación para hacer que el texto aparezca */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes explosion {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        .explosion {
+            position: absolute;
+            width: 100px; /* Ajusta el tamaño de la explosión */
+            height: 100px; /* Ajusta el tamaño de la explosión */
+            background: radial-gradient(circle, rgba(255, 255, 0, 0.8), transparent); /* Color de la explosión */
+            border-radius: 50%;
+            animation: explosion 1s forwards;
+            z-index: 1; /* Para que esté detrás del texto */
+        }
+    </style>
+</head>
+<body>
+    <div class="message">Castigo Fantasy</div>
+
+    <script>
+        // Función para crear explosiones
+        function createExplosion() {
+            const explosion = document.createElement('div');
+            explosion.className = 'explosion';
+            // Posiciona la explosión aleatoriamente en la pantalla
+            explosion.style.left = Math.random() * window.innerWidth + 'px';
+            explosion.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(explosion);
+            
+            // Elimina la explosión después de la animación
+            explosion.addEventListener('animationend', () => {
+                explosion.remove();
+            });
+        }
+
+        // Crea explosiones cada segundo
+        setInterval(createExplosion, 1000);
+    </script>
+</body>
+</html>
